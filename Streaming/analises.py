@@ -5,7 +5,7 @@ from Streaming.usuario import Usuario
 
 class Analises:
     """
-    Classe utilitária para gerar análises e estatísticas sobre os dados do sistema.
+    Classe para gerar análises e estatísticas sobre os dados do sistema.
     """
 
     @staticmethod
@@ -14,12 +14,12 @@ class Analises:
         return sorted(musicas, key=lambda m: m.reproducoes, reverse=True)[:top_n]
 
     @staticmethod
-    def playlist_mais_popular(playlists: List[Playlist]) -> Playlist:
+    def playlist_mais_popular(playlists: List[Playlist]):
         """Retorna a playlist mais ouvida (com mais reproduções)."""
         return max(playlists, key=lambda p: p.reproducoes)
 
     @staticmethod
-    def usuario_mais_ativo(usuarios: List[Usuario]) -> Usuario:
+    def usuario_mais_ativo(usuarios: List[Usuario]):
         """Retorna o usuário que mais ouviu mídias (maior histórico)."""
         return max(usuarios, key=lambda u: len(u.historico))
 
@@ -34,7 +34,7 @@ class Analises:
         return medias
 
     @staticmethod
-    def total_reproducoes(usuarios: List[Usuario]) -> int:
+    def total_reproducoes(usuarios: List[Usuario]):
         """Retorna o total de reproduções feitas por todos os usuários."""
         return sum(len(u.historico) for u in usuarios)
         

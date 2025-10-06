@@ -36,14 +36,8 @@ class Musica(ArquivoDeMidia):
         super().reproduzir()
 
     def __str__(self):
-        """
-        Retorna uma representação amigável da música.
-        """
-        return f"Música: {self.titulo} - Artista: {self.artista} - Gênero: {self.genero}"
+        return f"Música: {self.titulo} - Artista: {self.artista} - Duração: {self.duracao} segundos - Gênero: {self.genero}"
 
     def __repr__(self):
-        """
-        Retorna uma representação detalhada do objeto Musica.
-        """
         return (f"Musica(titulo='{self.titulo}', artista='{self.artista}', "
                 f"duracao={self.duracao}, genero='{self.genero}')")

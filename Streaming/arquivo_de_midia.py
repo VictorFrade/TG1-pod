@@ -33,7 +33,8 @@ class ArquivoDeMidia(ABC):
         Compara se dois arquivos de mídia são iguais com base no título e no artista.
         """
         if not isinstance(outro, ArquivoDeMidia):
-            return NotImplemented
+            raise NotImplementedError(
+                "Você só pode fazer uma comparação entre tipos de arquivos de mídia.")
         else:
             return self.titulo.lower() == outro.titulo.lower() and self.artista.lower() == outro.artista.lower()
 

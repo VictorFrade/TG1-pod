@@ -1,6 +1,4 @@
-
 from Streaming.arquivo_de_midia import ArquivoDeMidia
-from Streaming.usuario import Usuario
 
 
 class Playlist:
@@ -8,7 +6,7 @@ class Playlist:
     Representa uma playlist criada por um usuário.
 
         nome (str): O nome da playlist.
-        usuario (Usuario): O usuário que criou a playlist.
+        usuario ('Usuario'): O usuário que criou a playlist.
         itens (list[ArquivoDeMidia]): A lista de mídias na playlist.
     """
 

@@ -1,5 +1,5 @@
-from Streaming.playlist import Playlist
 from Streaming.arquivo_de_midia import ArquivoDeMidia
+
 
 class Usuario:
     """
@@ -7,15 +7,15 @@ class Usuario:
 
     Attributes:
         nome (str): O nome do usuário.
-        playlists (list[Playlist]): Lista de playlists criadas pelo usuário.
+        playlists (list['Playlist']): Lista de playlists criadas pelo usuário.
         historico (list[ArquivoDeMidia]): Histórico de mídias ouvidas pelo usuário.
     """
     qntd_instancias = 0
 
     def __init__(self, nome: str):
-        self.nome = nome 
-        self.playlists = [] 
-        self.historico = [] 
+        self.nome = nome
+        self.playlists = []
+        self.historico = []
         Usuario.qntd_instancias += 1
 
     def ouvir_midia(self, midia: ArquivoDeMidia):
@@ -23,16 +23,19 @@ class Usuario:
         Simula o usuário ouvindo uma mídia, adicionando-a ao histórico.
         """
         midia.reproduzir()
-        self.historico.append(midia) 
+        self.historico.append(midia)
 
-    def criar_playlist(self, nome_playlist: str) -> Playlist:
+    def criar_playlist(self, nome_playlist: str) -> 'Playlist':
         """
         Cria uma nova playlist para o usuário.
         """
         for p in self.playlists:
             if p.nome.lower() == nome_playlist.lower():
                 raise ValueError(f"Playlist '{nome_playlist}' já existe para o usuário {self.nome}.")
-        
+
+        # Import local evita ciclo de importação em tempo de carregamento
+        from Streaming.playlist import Playlist
+
         nova_playlist = Playlist(nome_playlist, self)
         self.playlists.append(nova_playlist)
         return nova_playlist

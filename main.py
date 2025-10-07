@@ -1,10 +1,3 @@
-
-from Streaming.musica import Musica
-from Streaming.podcast import Podcast
-from Streaming.usuario import Usuario
-from Streaming.menu import Menu
-
-
 class SistemaStreaming:
     def __init__(self, config_file):
         self.musicas = []
@@ -50,22 +43,25 @@ class SistemaStreaming:
 
     def _processar_linha(self, secao, dados):
         try:
+            # Importações locais para evitar ciclos de importação durante o carregamento do módulo
             if secao == 'MUSICAS':
+                from Streaming.musica import Musica
                 titulo, artista, duracao, genero = dados
-                self.musicas.append(
-                    Musica(titulo, artista, int(duracao), genero))
+                self.musicas.append(Musica(titulo, artista, int(duracao), genero))
             elif secao == 'PODCASTS':
+                from Streaming.podcast import Podcast
                 titulo, host, duracao, temporada, episodio = dados
-                self.podcasts.append(
-                    Podcast(titulo, host, int(duracao), temporada, int(episodio)))
+                self.podcasts.append(Podcast(titulo, host, int(duracao), temporada, int(episodio)))
             elif secao == 'USUARIOS':
+                from Streaming.usuario import Usuario
                 self.usuarios.append(Usuario(dados[0]))
             elif secao == 'PLAYLISTS':
                 nome_playlist, nome_usuario, *titulos = dados
                 usuario = self.encontrar_usuario(nome_usuario)
                 if not usuario:
                     self._registrar_erro(
-                        f"Usuário '{nome_usuario}' da playlist '{nome_playlist}' não localizado.")
+                        f"Usuário '{nome_usuario}' da playlist '{nome_playlist}' não localizado."
+                    )
                     return
                 playlist = usuario.criar_playlist(nome_playlist)
                 for t in titulos:
@@ -74,11 +70,13 @@ class SistemaStreaming:
                         playlist.adicionar_midia(midia)
                     else:
                         self._registrar_erro(
-                            f"Item '{t}' na playlist '{nome_playlist}' não encontrado.")
+                            f"Item '{t}' na playlist '{nome_playlist}' não encontrado."
+                        )
                 self.playlists.append(playlist)
         except (ValueError, IndexError) as e:
             self._registrar_erro(
-                f"Formato inválido em '{';'.join(dados)}' na seção '{secao}': {e}")
+                f"Formato inválido em '{';'.join(dados)}' na seção '{secao}': {e}"
+            )
 
     def encontrar_usuario(self, nome):
         alvo = nome.lower()
@@ -103,12 +101,20 @@ class SistemaStreaming:
     def criar_usuario(self, nome):
         if self.encontrar_usuario(nome):
             raise ValueError(f"Usuário '{nome}' já existe.")
+        from Streaming.usuario import Usuario  # import local para evitar ciclos
         novo = Usuario(nome)
         self.usuarios.append(novo)
         return novo
 
-    def main():
-        caminho_config = 'config/dados.md'
-        sistema = SistemaStreaming(caminho_config)
-        sistema.carregar_dados()
-        Menu(sistema).menu_principal()
+
+def main():
+    # Import local para evitar carregar Menu (e suas dependências) no topo do módulo
+    from Streaming.menu import Menu
+    caminho_config = 'config/dados.md'
+    sistema = SistemaStreaming(caminho_config)
+    sistema.carregar_dados()
+    Menu(sistema).menu_principal()
+
+
+if __name__ == "__main__":
+    main()

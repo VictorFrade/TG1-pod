@@ -29,7 +29,7 @@ class Podcast(ArquivoDeMidia):
         print(f"Ep. {self.episodio} (Temporada: {self.temporada})")
 
     def __str__(self):
-        return f"Podcast: {self.titulo} | Host: {self.host} | Duração: {self.duracao}s | Temporada: {self.temporada} | Episódio: {self.episodio}"
+        return f"Podcast: {self.titulo} | Host: {self.artista} | Duração: {self.duracao}s | Temporada: {self.temporada} | Episódio: {self.episodio}"
 
     def __repr__(self):
-        return (f"Podcast(titulo='{self.titulo}', host='{self.host}', duracao={self.duracao}, temporada='{self.temporada}', episodio={self.episodio})")
+        return (f"Podcast(titulo='{self.titulo}', host='{self.artista}', duracao={self.duracao}, temporada='{self.temporada}', episodio={self.episodio})")

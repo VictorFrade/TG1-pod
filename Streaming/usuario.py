@@ -25,7 +25,7 @@ class Usuario:
         midia.reproduzir()
         self.historico.append(midia)
 
-    def criar_playlist(self, nome_playlist: str) -> 'Playlist':
+    def criar_playlist(self, nome_playlist: str):
         """
         Cria uma nova playlist para o usuário.
         """

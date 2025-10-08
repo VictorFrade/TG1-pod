@@ -1,4 +1,3 @@
-
 from abc import ABC, abstractmethod
 
 
@@ -36,7 +35,14 @@ class ArquivoDeMidia(ABC):
             raise NotImplementedError(
                 "Você só pode fazer uma comparação entre tipos de arquivos de mídia.")
         else:
-            return self.titulo.lower() == outro.titulo.lower() and self.artista.lower() == outro.artista.lower()
+            return (self.titulo.lower() == outro.titulo.lower()
+                    and self.artista.lower() == outro.artista.lower())
+
+    def __hash__(self):
+        """
+        Torna a classe hashable de forma consistente com __eq__, permitindo uso em sets/dicts.
+        """
+        return hash((self.titulo.lower(), self.artista.lower()))
 
     @abstractmethod
     def __str__(self):

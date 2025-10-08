@@ -11,9 +11,11 @@ class Menu:
         self.sistema = sistema
 
     def _limpar_tela(self):
+        """Limpa a tela do terminal. (auxílio IA)"""
         os.system('cls' if os.name == 'nt' else 'clear')
 
     def _exibir_cabecalho(self, titulo):
+        """Exibe o cabeçalho do menu com o título centralizado. (auxílio IA)"""
         self._limpar_tela()
         print("=" * 40)
         print(f"{titulo:^40}")
@@ -45,6 +47,7 @@ class Menu:
                 input("Pressione Enter para continuar...")
 
     def entrar_como_usuario(self):
+        """Faz o login de um usuário existente."""
         self._exibir_cabecalho("ENTRAR COMO USUÁRIO")
         nome = input("Digite seu nome de usuário: ")
         usuario = self.sistema.encontrar_usuario(nome)
@@ -56,6 +59,7 @@ class Menu:
             input("Pressione Enter para continuar...")
 
     def criar_novo_usuario(self):
+        """Cria um novo usuário no sistema. Seu nome deve ser único. Há tratamento de exceção para nomes duplicados."""
         self._exibir_cabecalho("CRIAR NOVO USUÁRIO")
         nome = input("Digite o nome para o novo usuário: ")
         try:
@@ -67,6 +71,7 @@ class Menu:
         input("Pressione Enter para continuar...")
 
     def listar_usuarios(self):
+        """Lista todos os usuários cadastrados no sistema."""
         self._exibir_cabecalho("LISTA DE USUÁRIOS")
         if not self.sistema.usuarios:
             print("Nenhum usuário cadastrado.")
@@ -111,6 +116,7 @@ class Menu:
                 input("Pressione Enter para continuar...")
 
     def reproduzir_midia(self, usuario):
+        """Reproduz uma mídia (música ou podcast) escolhida pelo usuário."""
         self._exibir_cabecalho("REPRODUZIR MÍDIA")
         self.listar_midias(pausar=False)
         titulo = input("Digite o título da mídia que deseja ouvir: ")
@@ -122,6 +128,7 @@ class Menu:
         input("Pressione Enter para continuar...")
 
     def listar_midias(self, pausar=True):
+        """Lista todas as músicas e podcasts disponíveis no sistema."""
         self._exibir_cabecalho("MÚSICAS E PODCASTS") 
         print("\n--- Músicas ---")
         for m in self.sistema.musicas:
@@ -133,6 +140,7 @@ class Menu:
             input("\nPressione Enter para continuar...")
 
     def listar_playlists(self, usuario):
+        """Lista todas as playlists do usuário logado."""
         self._exibir_cabecalho("SUAS PLAYLISTS")
         if not usuario.playlists:
             print("Você ainda não criou nenhuma playlist.")
@@ -142,6 +150,7 @@ class Menu:
         input("Pressione Enter para continuar...")
         
     def criar_playlist(self, usuario):
+        """Permite ao usuário criar uma nova playlist."""
         self._exibir_cabecalho("CRIAR NOVA PLAYLIST")
         nome_playlist = input("Digite o nome da nova playlist: ")
         try:
@@ -185,6 +194,7 @@ class Menu:
         input("Pressione Enter para continuar...")
 
     def concatenar_playlists(self, usuario):
+        """Permite ao usuário concatenar duas de suas playlists. A nova playlist é adicionada ao usuário. As playlists antigas são preservadas."""
         self._exibir_cabecalho("CONCATENAR PLAYLISTS")
         if len(usuario.playlists) < 2:
             print("Você precisa de pelo menos duas playlists para concatenar.")
@@ -211,6 +221,7 @@ class Menu:
         input("Pressione Enter para continuar...")
         
     def recomendar_musicas_para_usuario(self, usuario):
+        """INOVAÇÃO: Recomenda músicas ao usuário com base em suas preferências e histórico de reprodução. Analisa o histórico do usuário e sugere músicas similares ou populares entre usuários com gostos semelhantes."""
         self._exibir_cabecalho("MÚSICAS RECOMENDADAS PARA VOCÊ")
         recomendacoes = Analises.recomendar_musicas(usuario, self.sistema.usuarios, self.sistema.musicas)
         
@@ -222,7 +233,7 @@ class Menu:
         input("Pressione Enter para continuar...")
 
     def gerar_relatorio_final(self):
-        """Gera e salva o relatório final de reproduções.""" 
+        """Gera e salva o relatório final de reproduções. É sempre gerado ao sair do sistema. (Auxilio IA para formatação)""" 
         self._exibir_cabecalho("GERANDO RELATÓRIO")
         
         report_path = os.path.join('relatorios', 'relatorio.txt')
@@ -251,13 +262,6 @@ class Menu:
                 user_ativo = Analises.usuario_mais_ativo(self.sistema.usuarios)
                 f.write("--- USUÁRIO MAIS ATIVO ---\n")
                 f.write(f"- {user_ativo.nome} ({len(user_ativo.historico)} mídias ouvidas)\n\n")
-
-            # Média de avaliações
-            medias = Analises.media_avaliacoes(self.sistema.musicas)
-            f.write("--- MÉDIA DE AVALIAÇÕES DAS MÚSICAS ---\n")
-            for titulo, media in medias.items():
-                f.write(f"- {titulo}: {media:.2f}\n")
-            f.write("\n")
 
             # Total de reproduções
             total = Analises.total_reproducoes(self.sistema.usuarios)

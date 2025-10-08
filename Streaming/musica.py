@@ -13,22 +13,6 @@ class Musica(ArquivoDeMidia):
         self.genero = genero 
         self.avaliacoes = [] 
 
-    def avaliar(self, nota: int):
-        """
-        Adiciona uma nova avaliação à lista de avaliações da música.
-        A nota deve estar entre 0 e 5.
-
-        Args:
-            nota (int): A nota de avaliação.
-        
-        Raises:
-            ValueError: Se a nota estiver fora do intervalo permitido.
-        """
-        if 0 <= nota <= 5:
-            self.avaliacoes.append(nota) 
-        else:
-            raise ValueError("A nota de avaliação deve estar entre 0 e 5.")
-
     def reproduzir(self):
         """
         Simula a reprodução da música.

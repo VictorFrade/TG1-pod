@@ -1,6 +1,7 @@
 import os
 import datetime
 from Streaming.analises import Analises
+from Streaming.playlist import Playlist
 
 class Menu:
     """
@@ -84,7 +85,8 @@ class Menu:
             print("4. Criar nova playlist")
             print("5. Concatenar playlists")
             print("6. Recomendar músicas")
-            print("7. Sair (Voltar ao menu principal)") 
+            print("7. Reproduzir playlist")
+            print("8. Sair (Voltar ao menu principal)") 
             
             escolha = input(">> Escolha uma opção: ")
 
@@ -101,6 +103,8 @@ class Menu:
             elif escolha == '6':
                 self.recomendar_musicas_para_usuario(usuario)
             elif escolha == '7':
+                self.reproduzir_playlist(usuario)
+            elif escolha == '8':
                 break
             else:
                 print("Opção inválida!")
@@ -158,6 +162,18 @@ class Menu:
             print(f"Erro: {e}")
             self.sistema.log_erro(str(e))
         input("Pressione Enter para continuar...")
+
+    def reproduzir_playlist(playlist: 'Playlist') -> None:
+        """
+        Reproduz todas as mídias da playlist, incrementando o contador
+        de reproduções da playlist (+1 por execução completa) e mantendo
+        a contagem de reproduções das mídias internas.
+        """
+        print(f"--- Reproduzindo a Playlist: {playlist.nome} ---")
+        playlist.reproducoes += 1
+        for midia in playlist.itens:
+            midia.reproduzir()
+        print(f"--- Fim da Playlist: {playlist.nome} ---")
 
     def concatenar_playlists(self, usuario):
         self._exibir_cabecalho("CONCATENAR PLAYLISTS")

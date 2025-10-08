@@ -163,17 +163,26 @@ class Menu:
             self.sistema.log_erro(str(e))
         input("Pressione Enter para continuar...")
 
-    def reproduzir_playlist(playlist: 'Playlist') -> None:
-        """
-        Reproduz todas as mídias da playlist, incrementando o contador
-        de reproduções da playlist (+1 por execução completa) e mantendo
-        a contagem de reproduções das mídias internas.
-        """
-        print(f"--- Reproduzindo a Playlist: {playlist.nome} ---")
-        playlist.reproducoes += 1
-        for midia in playlist.itens:
-            midia.reproduzir()
-        print(f"--- Fim da Playlist: {playlist.nome} ---")
+    def reproduzir_playlist(self, usuario):
+        """Permite ao usuário reproduzir uma de suas playlists."""
+        self._exibir_cabecalho("REPRODUZIR PLAYLIST")
+        if not usuario.playlists:
+            print("Você ainda não criou nenhuma playlist.")
+            input("Pressione Enter para continuar...")
+            return
+
+        i = 0
+        for p in usuario.playlists:
+            print(f"{i}. {p.nome} ({len(p)} itens)")
+            i += 1
+
+        try:
+            idx = int(input("Índice da playlist para reproduzir: "))
+            playlist = usuario.playlists[idx]
+            playlist.reproduzir()
+        except (ValueError, IndexError):
+            print("Erro: índice inválido.")
+        input("Pressione Enter para continuar...")
 
     def concatenar_playlists(self, usuario):
         self._exibir_cabecalho("CONCATENAR PLAYLISTS")

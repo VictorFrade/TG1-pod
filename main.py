@@ -14,6 +14,10 @@ class SistemaStreaming:
         except Exception:
             pass
 
+    # ADDED: public method expected by Menu
+    def log_erro(self, msg: str):
+        self._registrar_erro(msg)
+
     def carregar_dados(self):
         try:
             # abre o arquivo e itera linhas, ignorando vazias e mantendo comentários

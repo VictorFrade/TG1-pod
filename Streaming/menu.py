@@ -64,6 +64,10 @@ class Menu:
         """Cria um novo usuário no sistema. Seu nome deve ser único. Há tratamento de exceção para nomes duplicados."""
         self._exibir_cabecalho("CRIAR NOVO USUÁRIO")
         nome = input("Digite o nome para o novo usuário: ")
+        if nome.strip() == "":
+            print("O nome do usuário não pode ser vazio.")
+            input("Pressione Enter para continuar...")
+            return
         try:
             self.sistema.criar_usuario(nome)
             print(f"Usuário '{nome}' criado com sucesso!")

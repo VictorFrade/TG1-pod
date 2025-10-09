@@ -90,7 +90,7 @@ class Menu:
         """Exibe o menu do usuário logado."""
         while True:
             self._exibir_cabecalho(f"Bem-vindo(a), {usuario.nome}!")
-            print("1. Reproduzir uma música")
+            print("1. Reproduzir mídia")
             print("2. Listar mídias")
             print("3. Listar playlists")
             print("4. Criar nova playlist")

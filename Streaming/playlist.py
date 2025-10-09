@@ -36,16 +36,49 @@ class Playlist:
 
     def __add__(self, other: 'Playlist'):
         """
-        Concatena duas playlists, criando uma nova.
+        Concatena duas playlists, criando uma nova sem itens duplicados.
         A nova playlist tem o nome da primeira.
+        Remove ambas as playlists originais.
         """
         if not isinstance(other, Playlist):
             raise NotImplementedError(
-                "Só é possível concatenar uma Playlist com outra Playlist.")
+                "Só é possível concatenar uma Playlist com outra Playlist."
+            )
+        if other is self:
+            raise ValueError(
+                "Não é possível concatenar uma playlist com ela mesma.")
 
         nova_playlist = Playlist(self.nome, self.usuario)
-        nova_playlist.itens = self.itens + other.itens
+
+        for midia in self.itens:
+            nova_playlist.itens.append(midia)
+
+        for midia in other.itens:
+            ja_existe = False
+            for existente in nova_playlist.itens:
+                try:
+                    if existente == midia:
+                        ja_existe = True
+                        break
+                except Exception:
+                    pass
+            if not ja_existe:
+                nova_playlist.itens.append(midia)
+
         nova_playlist.reproducoes = self.reproducoes + other.reproducoes
+
+        try:
+            if self in self.usuario.playlists:
+                self.usuario.playlists.remove(self)
+        except Exception:
+            pass
+
+        try:
+            if other in other.usuario.playlists:
+                other.usuario.playlists.remove(other)
+        except Exception:
+            pass
+
         return nova_playlist
 
     def __len__(self):

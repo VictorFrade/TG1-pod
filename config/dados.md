@@ -6,17 +6,70 @@
 - Hotel California;Eagles;391;Rock
 - Billie Jean;Michael Jackson;294;Pop
 - The Real Slim Shady;Eminem;284;Rap
+- Imagine;John Lennon;183;Rock
+- Hey Jude;The Beatles;431;Rock
+- Rolling in the Deep;Adele;228;Pop
+- Blinding Lights;The Weeknd;200;Pop
+- Shape of You;Ed Sheeran;233;Pop
+- Beat It;Michael Jackson;258;Pop
+- Hells Bells;AC/DC;312;Rock
+- Back in Black;AC/DC;255;Rock
+- Lose Yourself;Eminem;326;Rap
+- Umbrella;Rihanna;250;Pop
+- One;Metallica;447;Metal
+- Nothing Else Matters;Metallica;388;Metal
+- Smooth;Santana;298;Latin Rock
+- Despacito;Luis Fonsi;229;Reggaeton
 
 #PODCASTS
 - Podpah #700;Igão e Mítico;7200;Temporada 2024;700
 - NerdCast 935 - O Problema dos 3 Corpos;Jovem Nerd e Azaghal;6900;Temporada 2024;935
+- Flow #600;Igor;7200;Temporada 2024;600
+- NerdCast 940 - Ciência;Jovem Nerd e Azaghal;6800;Temporada 2024;940
+- ÁgilCast 120 - Scrum na prática;Host Ágil;3600;Temporada 2023;120
+- Café com Dev 45 - Python Tips;Fulano;2700;Temporada 2022;45
+- Ciência Sem Fio 12 - Telescópios;Dra. Ana;3300;Temporada 2021;12
+- DataCast 78 - Dados no esporte;Time Data;4200;Temporada 2023;78
+- Tech Trends 10 - IA Generativa;Equipe Tech;3000;Temporada 2024;10
+- História em Pauta 5 - Roma;Prof. Carlos;3100;Temporada 2020;5
 
 #USUARIOS
 - Alice
 - Bruno
 - Carla
+- Diego
+- Eduardo
+- Fernanda
+- Gabriela
+- Helena
+- Igor
+- João
+- Karla
+- Lucas
+- Mariana
+- Nathalia
+- Otávio
+- Pedro
+- Rafael
+- Sofia
+- Tiago
+- Vanessa
+- William
 
 #PLAYLISTS
 - Rock Clássico;Alice;Stairway to Heaven;Bohemian Rhapsody;Hotel California
 - Favoritas do Bruno;Bruno;Billie Jean;The Real Slim Shady
-- Teste com erro;Carla;Musica Inexistente;Billie Jean
+- Favoritas da Carla;Carla;Billie Jean;Like a Rolling Stone
+- Só Pop;Sofia;Blinding Lights;Rolling in the Deep;Shape of You;Umbrella;Billie Jean
+- Rock Pesado;Pedro;Back in Black;Hells Bells;One;Nothing Else Matters
+- Clássicos Pop Rock;Mariana;Imagine;Hey Jude;Smooth;Hotel California
+- Rap Hits;Rafael;Lose Yourself;The Real Slim Shady
+- MJ Essentials;Vanessa;Billie Jean;Beat It
+- ACDC Power;William;Back in Black;Hells Bells
+- Metallica Top;Tiago;One;Nothing Else Matters
+- Românticas;Helena;Imagine;Nothing Else Matters
+- Latinos;Gabriela;Despacito;Smooth
+- Treino;Diego;Lose Yourself;Blinding Lights;Beat It
+- Clássicos Anos 70;Eduardo;Stairway to Heaven;Bohemian Rhapsody;Hotel California;Like a Rolling Stone
+- Mix Diverso;João;Despacito;Shape of You;Smells Like Teen Spirit;Rolling in the Deep
+- Tech e Ciência;Igor;Tech Trends 10 - IA Generativa;Ciência Sem Fio 12 - Telescópios;Blinding Lights

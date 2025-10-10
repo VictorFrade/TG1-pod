@@ -52,6 +52,7 @@ class Menu:
                 break
             else:
                 print("Opção inválida!")
+                self.sistema.log_erro("Opção inválida no menu principal.")
                 input("Pressione Enter para continuar...")
 
     def entrar_como_usuario(self):
@@ -67,6 +68,7 @@ class Menu:
             self.menu_usuario(usuario)
         else:
             print(f"Usuário '{nome}' não encontrado.")
+            self.sistema.log_erro(f"Usuário '{nome}' não encontrado ao tentar logar.")
             input("Pressione Enter para continuar...")
 
     def criar_novo_usuario(self):
@@ -79,6 +81,7 @@ class Menu:
         # Checa se o nome é vazio e encerra a função
         if nome.strip() == "":
             print("O nome do usuário não pode ser vazio.")
+            self.sistema.log_erro("Tentativa de criar usuário sem nome.")
             input("Pressione Enter para continuar...")
             return
 
@@ -141,6 +144,7 @@ class Menu:
                 break
             else:
                 print("Opção inválida!")
+                self.sistema.log_erro("Opção inválida no menu do usuário.")
                 input("Pressione Enter para continuar...")
 
     def reproduzir_midia(self, usuario):
@@ -200,6 +204,7 @@ class Menu:
         # Evita a criação de uma playlist sem nome
         if nome_playlist.strip() == "":
             print("O nome da playlist não pode ser vazio.")
+            self.sistema.log_erro("Tentativa de criar playlist sem nome.")
             input("Pressione Enter para continuar...")
             return
 
@@ -225,6 +230,7 @@ class Menu:
             if not playlist.itens:
                 usuario.playlists.remove(playlist)
                 print("Atenção: A playlist está vazia. Não será criada.")
+                self.sistema.log_erro(f"Playlist '{nome_playlist}' não criada por estar vazia.")
             else:
                 print(f"Playlist '{nome_playlist}' criada com sucesso!")
 
@@ -241,6 +247,7 @@ class Menu:
         self._exibir_cabecalho("REPRODUZIR PLAYLIST")
         if not usuario.playlists:
             print("Você ainda não criou nenhuma playlist.")
+            self.sistema.log_erro("Tentativa de reproduzir playlist sem playlists criadas.")
             input("Pressione Enter para continuar...")
             return
 
@@ -267,6 +274,7 @@ class Menu:
         self._exibir_cabecalho("CONCATENAR PLAYLISTS")
         if len(usuario.playlists) < 2:
             print("Você precisa de pelo menos duas playlists para concatenar.")
+            self.sistema.log_erro("Tentativa de concatenar playlists com menos de duas playlists criadas.")
             input("Pressione Enter para continuar...")
             return
 

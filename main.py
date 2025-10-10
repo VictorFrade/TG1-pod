@@ -5,7 +5,7 @@ class SistemaStreaming:
         self.usuarios = []
         self.playlists = []
         self.config_file = config_file
-        self._log = 'erros.log'
+        self._log = 'logs/erros.log'
 
     def _registrar_erro(self, msg):
         """

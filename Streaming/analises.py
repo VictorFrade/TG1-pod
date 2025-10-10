@@ -4,25 +4,32 @@ class Analises:
     """
     Classe para gerar análises e estatísticas sobre os dados do sistema.
     """
-
     @staticmethod
     def top_musicas_reproduzidas(musicas, top_n):
-        """Retorna as top músicas mais reproduzidas."""
+        """
+        Retorna as top músicas mais reproduzidas.
+        """
         return sorted(musicas, key=lambda m: m.reproducoes, reverse=True)[:top_n]
 
     @staticmethod
     def playlist_mais_popular(playlists):
-        """Retorna a playlist mais ouvida."""
+        """
+        Retorna a playlist mais ouvida.
+        """
         return max(playlists, key=lambda p: p.reproducoes)
 
     @staticmethod
     def usuario_mais_ativo(usuarios):
-        """Retorna o usuário que ouviu o maior número de mídias."""
+        """
+        Retorna o usuário que ouviu o maior número de mídias.
+        """
         return max(usuarios, key=lambda u: len(u.historico))
 
     @staticmethod
     def total_reproducoes(usuarios):
-        """Retorna o total de reproduções feitas por todos os usuários."""
+        """
+        Retorna o total de reproduções feitas por todos os usuários.
+        """
         return sum(len(u.historico) for u in usuarios)
 
     # INOVAÇÃO
@@ -64,5 +71,4 @@ class Analises:
         recomendacoes_ordenadas = sorted(
             recomendacoes.keys(), key=lambda m: recomendacoes[m], reverse=True
         )
-
         return recomendacoes_ordenadas[:n_recomendacoes]

@@ -17,11 +17,15 @@ class Playlist:
         self.reproducoes = 0
 
     def adicionar_midia(self, midia: ArquivoDeMidia):
-        """Adiciona uma mídia à playlist."""
+        """
+        Adiciona uma mídia à playlist.
+        """
         self.itens.append(midia)
 
     def remover_midia(self, midia: ArquivoDeMidia):
-        """Remove uma mídia da playlist."""
+        """
+        Remove uma mídia da playlist.
+        """
         self.itens.remove(midia)
 
     def reproduzir(self):
@@ -82,11 +86,15 @@ class Playlist:
         return nova_playlist
 
     def __len__(self):
-        """Retorna o número de itens na playlist."""
+        """
+        Retorna o número de itens na playlist.
+        """
         return len(self.itens)
 
     def __getitem__(self, index: int):
-        """Acesso por índice ao item da playlist."""
+        """
+        Acesso por índice ao item da playlist.
+        """
         return self.itens[index]
 
     def __eq__(self, other):

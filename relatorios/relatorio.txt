@@ -1,19 +1,19 @@
 ========================================
-Relatório de Reproduções - 2025-10-08 11:14:41
+Relatório de Reproduções - 2025-10-09 23:01:14
 ========================================
 
 --- TOP 5 MÚSICAS MAIS REPRODUZIDAS ---
-- Billie Jean por Michael Jackson (3 reproduções)
+- Billie Jean por Michael Jackson (7 reproduções)
+- Like a Rolling Stone por Bob Dylan (3 reproduções)
+- Bohemian Rhapsody por Queen (2 reproduções)
 - Hotel California por Eagles (2 reproduções)
 - Stairway to Heaven por Led Zeppelin (1 reproduções)
-- Like a Rolling Stone por Bob Dylan (1 reproduções)
-- The Real Slim Shady por Eminem (1 reproduções)
 
 --- PLAYLIST MAIS POPULAR ---
-- Rock ClÃ¡ssico de Alice (0 reproduções)
+- Favoritas da Carla de Carla (2 reproduções)
 
 --- USUÁRIO MAIS ATIVO ---
-- Bruno (5 mídias ouvidas)
+- Alice (5 mídias ouvidas)
 
 --- TOTAL DE REPRODUÇÕES NO SISTEMA ---
-Total: 8
+Total: 7

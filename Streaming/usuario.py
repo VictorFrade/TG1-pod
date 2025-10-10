@@ -41,13 +41,7 @@ class Usuario:
         return nova_playlist
 
     def __str__(self):
-        """
-        Retorna o nome do usuário.
-        """
-        return self.nome
+        return f"Usuario: {self.nome}"
 
     def __repr__(self):
-        """
-        Retorna uma representação detalhada do objeto Usuario.
-        """
         return f"Usuario(nome='{self.nome}')"

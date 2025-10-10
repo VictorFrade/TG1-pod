@@ -8,23 +8,29 @@ class Menu:
     """
     Classe que gerencia os menus de interação com o usuário.
     """
-
     def __init__(self, sistema):
         self.sistema = sistema
 
     def _limpar_tela(self):
-        """Limpa a tela do terminal. (auxílio IA)"""
+        """
+        Limpa a tela do terminal. (auxílio IA)
+        """
+
         os.system('cls' if os.name == 'nt' else 'clear')
 
     def _exibir_cabecalho(self, titulo):
-        """Exibe o cabeçalho do menu com o título centralizado. (auxílio IA)"""
+        """
+        Exibe o cabeçalho do menu com o título centralizado. (auxílio IA)
+        """
         self._limpar_tela()
         print("=" * 40)
         print(f"{titulo:^40}")
         print("=" * 40)
 
     def menu_principal(self):
-        """Exibe o menu principal e gerencia a navegação."""
+        """
+        Exibe o menu principal e gerencia a navegação.
+        """
         while True:
             self._exibir_cabecalho("MENU PRINCIPAL")
             print("1. Entrar como usuário")
@@ -49,11 +55,14 @@ class Menu:
                 input("Pressione Enter para continuar...")
 
     def entrar_como_usuario(self):
-        """Faz o login de um usuário existente."""
+        """
+        Faz o login de um usuário existente.
+        """
         self._exibir_cabecalho("ENTRAR COMO USUÁRIO")
         nome = input("Digite seu nome de usuário: ")
         usuario = self.sistema.encontrar_usuario(nome)
 
+        # Somente faz o login se o usuário existir
         if usuario:
             self.menu_usuario(usuario)
         else:
@@ -61,23 +70,31 @@ class Menu:
             input("Pressione Enter para continuar...")
 
     def criar_novo_usuario(self):
-        """Cria um novo usuário no sistema. Seu nome deve ser único. Há tratamento de exceção para nomes duplicados."""
+        """
+        Cria um novo usuário no sistema. Seu nome deve ser único. Há tratamento de exceção para nomes duplicados.
+        """
         self._exibir_cabecalho("CRIAR NOVO USUÁRIO")
         nome = input("Digite o nome para o novo usuário: ")
+
+        # Checa se o nome é vazio e encerra a função
         if nome.strip() == "":
             print("O nome do usuário não pode ser vazio.")
             input("Pressione Enter para continuar...")
             return
+
         try:
             self.sistema.criar_usuario(nome)
             print(f"Usuário '{nome}' criado com sucesso!")
         except ValueError as e:
             print(f"Erro: {e}")
             self.sistema.log_erro(str(e))
+
         input("Pressione Enter para continuar...")
 
     def listar_usuarios(self):
-        """Lista todos os usuários cadastrados no sistema."""
+        """
+        Lista todos os usuários cadastrados no sistema.
+        """
         self._exibir_cabecalho("LISTA DE USUÁRIOS")
         if not self.sistema.usuarios:
             print("Nenhum usuário cadastrado.")
@@ -87,7 +104,9 @@ class Menu:
         input("Pressione Enter para continuar...")
 
     def menu_usuario(self, usuario):
-        """Exibe o menu do usuário logado."""
+        """
+        Exibe o menu do usuário logado.
+        """
         while True:
             self._exibir_cabecalho(f"Bem-vindo(a), {usuario.nome}!")
             print("1. Reproduzir mídia")
@@ -97,7 +116,8 @@ class Menu:
             print("5. Concatenar playlists")
             print("6. Recomendar músicas")
             print("7. Reproduzir playlist")
-            print("8. Sair (Voltar ao menu principal)")
+            print("8. Gerar relatório")
+            print("9. Sair (Voltar ao menu principal)")
 
             escolha = input(">> Escolha uma opção: ")
 
@@ -116,55 +136,80 @@ class Menu:
             elif escolha == '7':
                 self.reproduzir_playlist(usuario)
             elif escolha == '8':
+                self.gerar_relatorio_final()
+            elif escolha == '9':
                 break
             else:
                 print("Opção inválida!")
                 input("Pressione Enter para continuar...")
 
     def reproduzir_midia(self, usuario):
-        """Reproduz uma mídia (música ou podcast) escolhida pelo usuário."""
+        """
+        Reproduz uma mídia (música ou podcast) escolhida pelo usuário.
+        """
         self._exibir_cabecalho("REPRODUZIR MÍDIA")
         self.listar_midias(pausar=False)
         titulo = input("Digite o título da mídia que deseja ouvir: ")
         midia = self.sistema.encontrar_midia(titulo)
+
         if midia:
             usuario.ouvir_midia(midia)
         else:
             print(f"Mídia '{titulo}' não encontrada.")
+            self.sistema.log_erro(f"Mídia '{titulo}' não encontrada.")
+        
         input("Pressione Enter para continuar...")
 
     def listar_midias(self, pausar=True):
-        """Lista todas as músicas e podcasts disponíveis no sistema."""
+        """
+        Lista todas as músicas e podcasts disponíveis no sistema.
+        """
         self._exibir_cabecalho("MÚSICAS E PODCASTS")
         print("\n--- Músicas ---")
         for m in self.sistema.musicas:
             print(m)
+
         print("\n--- Podcasts ---")
         for p in self.sistema.podcasts:
             print(p)
+
         if pausar:
             input("\nPressione Enter para continuar...")
 
     def listar_playlists(self, usuario):
-        """Lista todas as playlists do usuário logado."""
+        """
+        Lista todas as playlists do usuário logado.
+        """
         self._exibir_cabecalho("SUAS PLAYLISTS")
         if not usuario.playlists:
             print("Você ainda não criou nenhuma playlist.")
+
+        # Lista as playlists com seus índices
         else:
             for i, p in enumerate(usuario.playlists):
                 print(f"{i+1}. {p}")
         input("Pressione Enter para continuar...")
 
     def criar_playlist(self, usuario):
-        """Permite ao usuário criar uma nova playlist."""
+        """
+        Permite ao usuário criar uma nova playlist.
+        """
         self._exibir_cabecalho("CRIAR NOVA PLAYLIST")
         nome_playlist = input("Digite o nome da nova playlist: ")
+
+        # Evita a criação de uma playlist sem nome
         if nome_playlist.strip() == "":
             print("O nome da playlist não pode ser vazio.")
             input("Pressione Enter para continuar...")
             return
+
         try:
             playlist = usuario.criar_playlist(nome_playlist)
+
+            # Mostra as mídias disponíveis para adicionar à playlist
+            print("\nMídias disponíveis para adicionar à playlist:")
+            self.listar_midias()
+            
             while True:
                 print("\nAdicionar mídia à playlist (deixe em branco para finalizar):")
                 titulo_midia = input("Título da mídia: ")
@@ -176,24 +221,30 @@ class Menu:
                     print(f"'{midia.titulo}' adicionada.")
                 else:
                     print(f"Mídia '{titulo_midia}' não encontrada.")
+
             if not playlist.itens:
                 usuario.playlists.remove(playlist)
                 print("Atenção: A playlist está vazia. Não será criada.")
             else:
                 print(f"Playlist '{nome_playlist}' criada com sucesso!")
+
         except ValueError as e:
             print(f"Erro: {e}")
             self.sistema.log_erro(str(e))
+
         input("Pressione Enter para continuar...")
 
     def reproduzir_playlist(self, usuario):
-        """Permite ao usuário reproduzir uma de suas playlists."""
+        """
+        Permite ao usuário reproduzir uma de suas playlists.
+        """
         self._exibir_cabecalho("REPRODUZIR PLAYLIST")
         if not usuario.playlists:
             print("Você ainda não criou nenhuma playlist.")
             input("Pressione Enter para continuar...")
             return
 
+        # Lista as playlists com seus índices
         i = 0
         for p in usuario.playlists:
             print(f"{i}. {p.nome} ({len(p)} itens)")
@@ -205,16 +256,21 @@ class Menu:
             playlist.reproduzir()
         except (ValueError, IndexError):
             print("Erro: índice inválido.")
+            self.sistema.log_erro("Índice de playlist inválido ao tentar reproduzir.")
+
         input("Pressione Enter para continuar...")
 
     def concatenar_playlists(self, usuario):
-        """Permite ao usuário concatenar duas de suas playlists. A nova playlist é adicionada ao usuário. As playlists antigas são preservadas."""
+        """
+        Permite ao usuário concatenar duas de suas playlists. A nova playlist é adicionada ao usuário. As playlists antigas são preservadas.
+        """
         self._exibir_cabecalho("CONCATENAR PLAYLISTS")
         if len(usuario.playlists) < 2:
             print("Você precisa de pelo menos duas playlists para concatenar.")
             input("Pressione Enter para continuar...")
             return
 
+        # Lista as playlists com seus índices
         for i, p in enumerate(usuario.playlists):
             print(f"{i}. {p.nome}")
 
@@ -225,19 +281,27 @@ class Menu:
             p1 = usuario.playlists[idx1]
             p2 = usuario.playlists[idx2]
 
+            # uso do método __add__ para concatenar as playlists
             nova_playlist = p1 + p2
+
             # Adiciona a nova playlist ao usuário
             usuario.playlists.append(nova_playlist)
 
             print(f"\nPlaylists '{p1.nome}' e '{p2.nome}' concatenadas.")
             print(
                 f"Nova playlist criada: '{nova_playlist.nome}' com {len(nova_playlist)} itens.")
+            
         except (ValueError, IndexError):
             print("Erro: Índices inválidos.")
+            self.sistema.log_erro("Índices de playlist inválidos ao tentar concatenar.")
+
         input("Pressione Enter para continuar...")
 
     def recomendar_musicas_para_usuario(self, usuario):
-        """INOVAÇÃO: Recomenda músicas ao usuário com base em suas preferências e histórico de reprodução. Analisa o histórico do usuário e sugere músicas similares ou populares entre usuários com gostos semelhantes."""
+        """
+        INOVAÇÃO: Recomenda músicas ao usuário com base em suas preferências e histórico de reprodução. Analisa o histórico do usuário e sugere músicas similares ou populares entre usuários com gostos semelhantes.
+        """
+        # Utiliza a classe Analises para gerar recomendações
         self._exibir_cabecalho("MÚSICAS RECOMENDADAS PARA VOCÊ")
         recomendacoes = Analises.recomendar_musicas(
             usuario, self.sistema.usuarios, self.sistema.musicas)
@@ -247,12 +311,15 @@ class Menu:
         else:
             for musica in recomendacoes:
                 print(f"- {musica}")
+
         input("Pressione Enter para continuar...")
 
     def gerar_relatorio_final(self):
-        """Gera e salva o relatório final de reproduções. É sempre gerado ao sair do sistema. (Auxilio IA para formatação)"""
-        self._exibir_cabecalho("GERANDO RELATÓRIO")
+        """
+        Gera e salva o relatório final de reproduções. É sempre gerado ao sair do sistema. (Auxilio IA para formatação)
+        """
 
+        self._exibir_cabecalho("GERANDO RELATÓRIO")
         report_path = os.path.join('relatorios', 'relatorio.txt')
         os.makedirs(os.path.dirname(report_path), exist_ok=True)
 

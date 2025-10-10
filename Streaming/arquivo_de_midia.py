@@ -11,7 +11,6 @@ class ArquivoDeMidia(ABC):
         duracao (int): Duração em segundos.
         reproducoes (int): Número de vezes que a mídia foi reproduzida.
     """
-
     def __init__(self, titulo: str, artista: str, duracao: int):
         self.titulo = titulo
         self.artista = artista
